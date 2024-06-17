@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Simple Webpage</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            
+            $(document).on('click', '.delete-task-btn', function() {
+                var taskId = $(this).closest('li').data('task-id');
+                deleteTask(taskId);
+            });
+
+            
+            function deleteTask(taskId) {
+                $.ajax({
+                    url: '/delete-task',  
+                    type: 'POST',
+                    data: { taskId: taskId },
+                    success: function(response) {
+                        $('[data-task-id="' + taskId + '"]').remove();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error deleting task:', error);
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Improved Simple Webpage</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#tasks">Tasks</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <section id="home">
+            <h2>Welcome to Our Website!</h2>
+            <p>This is an improved simple webpage example demonstrating HTML structure and CSS styling.</p>
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis libero a nisl luctus, vel aliquam lectus feugiat.</p>
+        </section>
+
+        <section id="tasks">
+            <h2>Task Management</h2>
+            <ul id="task-list">
+                <li data-task-id="1">Task 1 <button class="delete-task-btn">Delete</button></li>
+                <li data-task-id="2">Task 2 <button class="delete-task-btn">Delete</button></li>
+                
+            </ul>
+
+            <form id="add-task-form">
+                <input type="text" id="task-name" placeholder="Enter task name">
+                <button type="submit">Add Task</button>
+            </form>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Email: contact@example.com<br>Phone: +1 (123) 456-7890</p>
+        </section>
+    </main>
+    <li><a href="https://www.google.com">External Link</a></li>
+    <li><a href="https://github.com/sunny-sharma108/task-2-Improved-Simple-Webpage">External Link</a></li>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Improved Simple Webpage. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
